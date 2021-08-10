@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+android {
+
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+
+    buildFeatures {
+        dataBinding true
+    }
+    defaultConfig {
+        multiDexEnabled true
+        vectorDrawables.useSupportLibrary = true
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.multidex:multidex:$multidexVersion"
+    //android
+    implementation "androidx.appcompat:appcompat:$supportVersion"
+    //noinspection GradleDependency
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "android.arch.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentExtVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    implementation "android.arch.navigation:navigation-ui-ktx:$navigationVersion"
+
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navigationVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycleVersion"
+    implementation "androidx.core:core-ktx:$coreKtxVersion"
+    implementation "androidx.fragment:fragment-ktx:$fragmentExtVersion"
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayoutVersion"
+
+    //dependency injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltExtVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltExtVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
+
+    implementation "pub.devrel:easypermissions:$easypermissionsVersion"
+    implementation "com.makeramen:roundedimageview:$roundedImageViewVersion"
+    //other
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+
+
+    implementation project(':domain')
+}
+
+kapt {
+    correctErrorTypes true
+}

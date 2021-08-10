@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="post"
+            type="ir.shamspour.domain.model.Post" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="16dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:fontFamily="@font/gilroy_bold"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="8dp"
+            android:text="@{post.title}"
+            android:textSize="16sp"
+            android:textColor="@color/primaryTextColor"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:fontFamily="@font/gilroy_medium"
+            android:layout_width="match_parent"
+            android:layout_marginVertical="4dp"
+            android:text="@{post.body}"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginVertical="8dp"
+            android:src="@color/dividerColor"
+           />
+    </LinearLayout>
+
+</layout>

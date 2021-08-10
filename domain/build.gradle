@@ -1,0 +1,53 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+
+    defaultConfig {
+        multiDexEnabled true
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode rootProject.ext.versionCode
+        versionName rootProject.ext.versionName
+        testInstrumentationRunner rootProject.ext.testInstrumentationRunner
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+        kotlinOptions {
+            freeCompilerArgs = ["-XXLanguage:+InlineClasses"]
+        }
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+configurations {
+    unitTestImplementation.extendsFrom testImplementation
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    //Coroutines dependencies
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
+    //dependency injection
+    implementation "javax.inject:javax.inject:$javaxInjectVersion"
+
+}
+kapt {
+    correctErrorTypes true
+}
+

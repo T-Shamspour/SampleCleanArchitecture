@@ -1,0 +1,19 @@
+class Environments {
+    String baseURL = ""
+}
+
+class EnvironmentItems {
+    Environments debug = new Environments()
+    Environments release = new Environments()
+
+}
+
+EnvironmentItems environments = new EnvironmentItems()
+
+environments.debug.baseURL = "https://jsonplaceholder.typicode.com/"
+environments.release.baseURL = "https://jsonplaceholder.typicode.com/"
+
+
+
+ext.environments = environments
+
