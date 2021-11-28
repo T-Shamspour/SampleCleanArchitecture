@@ -36,37 +36,47 @@ class PostFragment: BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts) 
 
     private fun setupObservers() {
         viewModel.run {
-            observe(isLoading(), ::isLoadingResult)
-            observe(getLoadingStatus(), ::initLoadingResult)
             observe(getPosts(), ::initPosts)
         }
 
     }
 
-    private fun initLoadingResult(hasLoadingError: Boolean?) {
-        binding.loadingHasError=hasLoadingError
-    }
 
     private fun initPosts(result: Result<List<Post>>?) {
         if (result is Result.Success) {
-            postAdapter.upDateDataSet(result.data)
+            updateList(result.data)
         } else if (result is Result.Error) {
             if (result.error.status == HttpErrors.Unauthorized)
             {
                 //handle expired token
             }
             else
+            {
+                showRetry(true)
+                showLoading(false)
                 result.error.message?.let {
                     Toast.makeText(requireContext(),it,Toast.LENGTH_SHORT).show()
                 }
+            }
+        }else if (result is Result.Loading) {
+           showLoading(result.loading)
         }
     }
 
-
-
-    private fun isLoadingResult(isLoading: Boolean) {
-       binding.isLoading=isLoading
+    private fun showLoading(isLoading: Boolean) {
+        binding.isLoading=isLoading
     }
+
+    private fun updateList(data: List<Post>) {
+        showLoading(false)
+        showRetry(false)
+        postAdapter.upDateDataSet(data)
+    }
+
+    private fun showRetry(showRetry: Boolean) {
+        binding.loadingHasError=showRetry
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -83,6 +93,7 @@ class PostFragment: BaseFragment<FragmentPostsBinding>(R.layout.fragment_posts) 
     inner class ClickHandler(fragment: PostFragment){
 
         fun onRetryButtonClicked(view: View){
+            showRetry(false)
             viewModel.fetchPosts()
         }
     }

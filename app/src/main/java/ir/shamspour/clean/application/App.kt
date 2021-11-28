@@ -6,7 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
 @HiltAndroidApp
-class InventoryApplication : MultiDexApplication() {
+class App : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

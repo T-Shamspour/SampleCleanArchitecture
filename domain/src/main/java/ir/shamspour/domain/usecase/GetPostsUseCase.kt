@@ -10,6 +10,6 @@ import ir.shamspour.domain.util.Result
 
 @Singleton
 class GetPostsUseCase @Inject constructor(private val repository: UserRepository) {
-    suspend fun execute(): Result<List<Post>> =
+    suspend operator fun  invoke(): Result<List<Post>> =
             repository.getPosts()
 }

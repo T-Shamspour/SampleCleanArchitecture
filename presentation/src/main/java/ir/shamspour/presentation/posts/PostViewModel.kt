@@ -12,40 +12,30 @@ class PostViewModel @ViewModelInject constructor(
         private val
     dispatchers: DispatchersProvider, private val getPostsUseCase: GetPostsUseCase
 ) : BaseViewModel(dispatchers) {
-    private val _isLoading: MutableLiveData<Boolean> = MutableLiveData()
-    private val _loadingHasError: MutableLiveData<Boolean> = MutableLiveData()
     private val _posts: MutableLiveData<Result<List<Post>>> = MutableLiveData()
 
     init {
-        _isLoading.postValue(true)
-        _loadingHasError.postValue(false)
         fetchPosts()
     }
 
 
     fun fetchPosts() {
-        _isLoading.postValue(true)
-        _loadingHasError.postValue(false)
         execute {
-            _isLoading.postValue(true)
-            when (val result = getPostsUseCase.execute()) {
+        _posts.postValue(Result.Loading(true))
+            when (val result = getPostsUseCase()) {
                 is Result.Success -> {
                     _posts.postValue(result)
-                    _isLoading.postValue(false)
-                    _loadingHasError.postValue(false)
+
                 }
                 is Result.Error -> {
                     _posts.postValue(result)
-                    _isLoading.postValue(false)
-                    _loadingHasError.postValue(true)
                 }
+                else -> {}
             }
         }
     }
 
 
-    fun isLoading(): MutableLiveData<Boolean> = _isLoading
-    fun getLoadingStatus(): MutableLiveData<Boolean> = _loadingHasError
     fun getPosts(): MutableLiveData<Result<List<Post>>> = _posts
 
 }

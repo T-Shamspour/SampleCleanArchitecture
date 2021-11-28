@@ -3,10 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.shamspour.clean">
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -17,7 +13,7 @@
         android:supportsRtl="true"
         android:hardwareAccelerated="true"
         android:usesCleartextTraffic="true"
-        android:name="ir.shamspour.clean.application.InventoryApplication"
+        android:name="ir.shamspour.clean.application.App"
         android:theme="@style/AppTheme"
         tools:targetApi="m">
         <activity android:name="ir.shamspour.presentation.MainActivity">
